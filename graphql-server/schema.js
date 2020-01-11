@@ -2,11 +2,16 @@ import { buildSchema } from 'graphql';
 
 const schema = buildSchema(`
     type Cliente {
-        id: ID,
-        nombre: String,
-        apellido: String,
-        empresa: String,
+        id: ID
+        nombre: String
+        apellido: String
+        empresa: String
         tipo: TipoCliente
+        pedido: [Pedido]
+    }
+    type Pedido {
+        producto: String
+        precio: Int
     }
     enum TipoCliente {
         BASICO
@@ -15,14 +20,22 @@ const schema = buildSchema(`
     type Query {
         getCliente(id: ID): Cliente
     }
-    type ClienteInput {
-        id: ID,
-        nombre: String!,
-        apellido: String!,
-        empresa: String!,
-        tipo: TipoCliente
+    input PedidoInput {
+        producto: String
+        precio: Int
     }
+    input ClienteInput {
+        id: ID
+        nombre: String!
+        apellido: String!
+        empresa: String!
+        tipo: TipoCliente
+        pedido: [Pedido]
+    }
+    """ Descripción general """
     type Mutation {
+        #Este es un comentario
+        """ Descripción por acción """
         crearCliente(input: ClienteInput) : Cliente
     }
 `);
