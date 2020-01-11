@@ -9,19 +9,34 @@ app.get('/', (req, res) => {
 	res.send('Hello world!');
 });
 
-//resolver
-const root = { cliente: () => {
-	return {
-		"id": 12343455,
-        "nombre": "Franko",
-        "apellido": "Campos",
-		"empresa": "CERVUS",
-		"emails": [
-			{email: "email@empresa.com"},
-			{email: "email@personal.com"}
-		]
+class Cliente {
+	constructor(id, { nombre, apellido, empresa }) {
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.empresa = empresa;
 	}
-} };
+}
+
+const clienteDB = {};
+
+//resolver
+const root = {
+	cliente: () => {
+		return {
+			id: 12343455,
+			nombre: 'Franko',
+			apellido: 'Campos',
+			empresa: 'CERVUS',
+			emails: [ { email: 'email@empresa.com' }, { email: 'email@personal.com' } ]
+		}
+	},
+	crearCliente: ({input}) => {
+		const id = 12344;
+		clienteDB[id] = input;
+		return new Cliente(id, input);
+	}
+};
 
 app.use(
 	'/graph',
