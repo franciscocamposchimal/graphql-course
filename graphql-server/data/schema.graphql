@@ -1,13 +1,12 @@
-import { buildSchema } from 'graphql';
-
-const schema = buildSchema(`
-    type Cliente {
+   type Cliente {
         id: ID
         nombre: String
         apellido: String
         empresa: String
+        email: String
+        edad: Int
         tipo: TipoCliente
-        pedido: [Pedido]
+        pedidos: [Pedido]
     }
     type Pedido {
         producto: String
@@ -29,8 +28,10 @@ const schema = buildSchema(`
         nombre: String!
         apellido: String!
         empresa: String!
+        email: String!
+        edad: Int!
         tipo: TipoCliente
-        pedido: [Pedido]
+        pedidos: [PedidoInput]
     }
     """ Descripción general """
     type Mutation {
@@ -38,6 +39,3 @@ const schema = buildSchema(`
         """ Descripción por acción """
         crearCliente(input: ClienteInput) : Cliente
     }
-`);
-
-export default schema;
