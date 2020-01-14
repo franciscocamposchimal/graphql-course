@@ -17,6 +17,7 @@
         PREMIUM
     }   
     type Query {
+        getClientes(limite: Int) : [Cliente]
         getCliente(id: ID): Cliente
     }
     input PedidoInput {
@@ -36,6 +37,10 @@
     """ Descripción general """
     type Mutation {
         #Este es un comentario
-        """ Descripción por acción """
+        """ Crear nuevo cliente """
         crearCliente(input: ClienteInput) : Cliente
+        """ Actualizar un cliente """
+        actualizarCliente(input: ClienteInput) : Cliente
+        """ Eliminar un cliente """
+        eliminarCliente(id: ID) : String        
     }
