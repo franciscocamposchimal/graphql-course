@@ -5,9 +5,9 @@ mongoose.Promise = global.Promise;
 const urlDB = 'mongodb+srv://franko:campos@cluster0-bgsj4.mongodb.net/test?retryWrites=true&w=majority'; 
 
 mongoose.connect(urlDB, { 
-    useUnifiedTopology: true, 
-    useNewUrlParser: true,
     useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true, 
     useFindAndModify: false
 });
 const clientesSchema = new mongoose.Schema({

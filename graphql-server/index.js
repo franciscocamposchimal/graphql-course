@@ -1,22 +1,12 @@
 import express from 'express';
-// graphql
-import graphqlHTTP from 'express-graphql';
-import { schema }  from './data/schema';
+import { ApolloServer } from 'apollo-server-express';
+import { typeDefs }  from './data/schema';
+import { resolvers } from './data/resolvers';
 
 const app = express();
 
-app.get('/', (req, res) => {
-	res.send('Hello world!');
-});
+const server = new ApolloServer({typeDefs,resolvers});
 
-app.use(
-'/graph',
-	graphqlHTTP({
-		//schema
-		schema,
-		// usar graphql
-		graphiql: true
-	})
-);
+server.applyMiddleware({app});
 
-app.listen(8000, () => console.log('Server is online.'));
+app.listen({port: 8000}, () => console.log(`Server is online in ${server.graphqlPath}`));
