@@ -7,10 +7,13 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  IconButton
+  IconButton,
+  Grid
    } from '@material-ui/core';
 // Icons
 import MenuIcon from '@material-ui/icons/Menu';
+
+import Clientes from './components/Cliente';
 
 const client = new ApolloClient({
   uri: "http://localhost:8000/graphql",
@@ -45,6 +48,9 @@ function App() {
           </Typography>
         </Toolbar>
       </AppBar>
+      <Grid container>
+        <Clientes></Clientes>
+      </Grid>
     </div>
       </ApolloProvider>
     </div>
