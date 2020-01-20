@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 // Material UI
 import {
   makeStyles,
@@ -50,7 +50,7 @@ function App() {
                     <MenuIcon />
                   </IconButton>
                   <Typography variant="h6" color="inherit">
-                    CERVUS CRM
+                    <Link to="/" style={{ textDecoration: 'none', color: 'white' }} >CERVUS CRM</Link>
                   </Typography>
                 </Toolbar>
               </AppBar>

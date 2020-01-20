@@ -23,7 +23,7 @@ const clientStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function NuevoCliente() {
+export default function NuevoCliente(props) {
 	const classes = clientStyles();
 
 	const [ cliente, setCliente ] = React.useState({
@@ -52,7 +52,10 @@ export default function NuevoCliente() {
 			<Grid item xs={12}>
 				<Grid container justify="center">
 					<Paper>
-						<Mutation mutation={NUEVO_CLIENTE}>
+						<Mutation 
+						mutation={NUEVO_CLIENTE}
+						onCompleted={ ()=> props.history.push('/')}
+						>
 							{(crearCliente) => (
 								<form className={classes.form} noValidate autoComplete="off">
 									<div>
@@ -60,7 +63,7 @@ export default function NuevoCliente() {
 											name="nombre"
 											label="Nombre"
 											variant="filled"
-											value={cliente.username}
+											value={cliente.nombre}
 											onChange={updateField}
 										/>
 										<TextField

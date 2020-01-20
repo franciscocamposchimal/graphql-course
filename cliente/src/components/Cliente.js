@@ -33,8 +33,8 @@ const clientStyles = makeStyles(theme => ({
 }));
 
 const Contactos = () => (
-  <Query query={CLIENTES_QUERY}>
-    {({ loading, error, data }) => {
+  <Query query={CLIENTES_QUERY} pollInterval={1000}>
+    {({ loading, error, data, startPolling, stopPolling }) => {
       const classes = clientStyles();
 
       if (loading) return <CircularProgress />;
@@ -52,7 +52,7 @@ const Contactos = () => (
           <Grid item xs={4}>
 			  <Paper className={classes.paperTitle} elevation={0}>
 				  <Button variant="contained" className={classes.button} endIcon={<Icon>add</Icon>}>	  
-				  	<Link to="/client/new">
+				  	<Link to="/client/new" style={{ textDecoration: 'none', color: 'inherit' }}>
 					  Agregar
 				  	</Link>
 				  </Button>
@@ -83,7 +83,7 @@ const Contactos = () => (
                           color="primary"
                           aria-label="text primary button group"
                         >
-                          <Button> <Link to={`client/edit/${cliente.id}`}>Editar</Link></Button>
+                          <Button> <Link to={`client/edit/${cliente.id}`} style={{ textDecoration: 'none' }}>Editar</Link></Button>
                           <Button>Info</Button>
                           <Button>Borrar</Button>
                         </ButtonGroup>

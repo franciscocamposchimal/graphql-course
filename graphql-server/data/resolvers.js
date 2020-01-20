@@ -4,7 +4,9 @@ import { Clientes } from './db';
 export const resolvers = {
 	Query: {
 		getClientes: (root, {limite}) => {
-			return Clientes.find({}).limit(limite);
+			return Clientes.find({}).
+					limit(limite).
+					sort({ _id: -1 });
 		},
 		getCliente: (root, {id}) => {
 			return new Promise( (resolve, object) => {
