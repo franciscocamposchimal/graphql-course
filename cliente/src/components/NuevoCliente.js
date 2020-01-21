@@ -125,9 +125,9 @@ export default function NuevoCliente(props) {
 											startIcon={<SaveIcon />}
 											onClick={(e) => {
 												e.preventDefault();
-                        cliente.edad = Number(cliente.edad);
-                        const {nombre,apellido,empresa,edad,tipo,email} = cliente;
-                        const input = {nombre,apellido,empresa,edad,tipo,email};
+                        						cliente.edad = Number(cliente.edad);
+                        						const {nombre,apellido,empresa,edad,tipo,email} = cliente;
+                        						const input = {nombre,apellido,empresa,edad,tipo,email};
 												crearCliente({
 													variables: { input }
 												});
