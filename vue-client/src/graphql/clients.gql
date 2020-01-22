@@ -1,0 +1,6 @@
+query getClientes{
+        id
+        nombre
+        apellido
+        empresa
+}
