@@ -39,8 +39,7 @@ const Contactos = () => (
 
       if (loading) return <CircularProgress />;
       if (error) return `Error: ${error.message}`;
-      console.log(data.getClientes);
-
+      
       return (
         <Fragment>
           <Grid item xs={4}></Grid>
