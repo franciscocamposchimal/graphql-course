@@ -4,7 +4,6 @@
       <div class="d-flex align-center">
       </div>
     </v-app-bar>
-
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -12,6 +11,7 @@
 </template>
 
 <script>
+/* eslint-disable */ 
 export default {
   name: "App",
 

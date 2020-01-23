@@ -7,25 +7,24 @@
         </v-col>
       </v-row>
     </v-container>
-    <HelloWorld :list="getClientes"/>
+    <TableContainer :list="getClientes"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+/* eslint-disable */ 
+import TableContainer from "@/components/Table.component.vue";
 import { CLIENTES_QUERY } from "@/graphql/queries";
 
 export default {
   name: "home",
-    data: () => ({
-  }),
+    data: () => ({}),
   components: {
-    HelloWorld
+    TableContainer
   },
   apollo: {
     getClientes: {
-      query: CLIENTES_QUERY,
+      query: CLIENTES_QUERY
     }
   }
 };
