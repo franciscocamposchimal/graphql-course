@@ -1,4 +1,16 @@
 import { Clientes, Usuarios } from './db';
+import bcrypt from 'bcrypt';
+//Token
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config({path: 'vars.env'});
+
+const genToken = (userLogin, secret, expiresIn) => {
+	let user = {id: userLogin._id ,username: userLogin.username};
+	console.log(user);
+	return jwt.sign(user,secret,{expiresIn});
+};
 
 export const resolvers = {
 	Query: {
@@ -66,6 +78,26 @@ export const resolvers = {
 				password
 			}).save();
 			return "Usuario creado...";
+		},
+		auth: async (root, {username,password})=>{
+			let findUser = await Usuarios.findOne({username});
+
+			if(!findUser){
+				throw new Error("Usuario no encontrado.");
+			}
+
+			let matchPassword = await bcrypt.compare(password, findUser.password);
+			
+			if(!matchPassword){
+				throw new Error("No autorizado.");
+			}
+			return {
+				token: genToken(
+					findUser,
+					process.env.JWT_SECRET,
+					'1hr')
+			};
+			
 		}
 	}
 }

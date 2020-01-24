@@ -12,6 +12,9 @@
         producto: String
         precio: Int
     }
+    type Token {
+        token: String
+    }
     enum TipoCliente {
         BASICO
         PREMIUM
@@ -44,5 +47,7 @@
         """ Eliminar un cliente """
         eliminarCliente(id: ID) : String 
         """ Crear un usuario """
-        crearUsuario(username: String!, password: String!) : String        
+        crearUsuario(username: String!, password: String!) : String
+        """ Autenticación """
+        auth(username: String!, password: String!) : Token          
     }
