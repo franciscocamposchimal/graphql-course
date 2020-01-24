@@ -1,9 +1,11 @@
-import mongoose from 'mongoose';
-import { Clientes } from './db';
+import { Clientes, Usuarios } from './db';
 
 export const resolvers = {
 	Query: {
-		getClientes: (root, {limite}) => {
+		getClientes: (parent, {limite}, context, info) => {
+			//console.log(info.fieldName);
+			//console.log(info.operation.operation);
+			//console.log(info);
 			return Clientes.find({}).
 					limit(limite).
 					sort({ _id: -1 });
@@ -53,6 +55,17 @@ export const resolvers = {
 					else resolve("Se eliminó correctamente")
 				});
 			});
+		},
+		crearUsuario: async (root,{username, password}) => {
+			let isExist = await Usuarios.findOne({username});
+			if (isExist){
+				throw new Error("Usuario ya existe.");
+			}
+			let nuevoUsuario = await new Usuarios({
+				username,
+				password
+			}).save();
+			return "Usuario creado...";
 		}
 	}
 }

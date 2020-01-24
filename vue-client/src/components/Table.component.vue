@@ -5,7 +5,7 @@
         <v-data-table :headers="headers" :items="list" :items-per-page="5" class="elevation-1">
           <template v-slot:item.action="{ item }">
             <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
-            <v-icon small @click="deleteItem(item)">delete</v-icon>
+            <v-icon small @click="deleteItem(item.id)">delete</v-icon>
           </template>
         </v-data-table>
       </v-flex>
@@ -41,8 +41,8 @@ export default {
     editItem(item) {
       console.log("EDIT: ",item);
     },
-    deleteItem(item) {
-      console.log("DELETE: ",item);
+    deleteItem(id) {
+      console.log("DELETE: ",id);
     }
   }
 };

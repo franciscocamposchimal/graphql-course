@@ -1,11 +1,18 @@
 import express from 'express';
+import cors from 'cors';
 // graphql
 import { ApolloServer } from 'apollo-server-express';
 import { typeDefs }  from './data/schema';
 import { resolvers } from './data/resolvers';
 
 const app = express();
-const server = new ApolloServer({ typeDefs, resolvers });
+app.use(cors())
+
+const server = new ApolloServer({ 
+    typeDefs, 
+    resolvers,
+    tracing: true,
+});
 
 server.applyMiddleware({app});
 

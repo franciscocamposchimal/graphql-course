@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 mongoose.Promise = global.Promise;
 
@@ -10,6 +11,7 @@ mongoose.connect(urlDB, {
     useUnifiedTopology: true, 
     useFindAndModify: false
 });
+//CLIENTES
 const clientesSchema = new mongoose.Schema({
     nombre: String,
     apellido: String,
@@ -21,5 +23,27 @@ const clientesSchema = new mongoose.Schema({
 });
 
 const Clientes = mongoose.model('clientes', clientesSchema);
+//USUARIOS
+const usuariosSchema = new mongoose.Schema({
+    username: String,
+    password: String
+});
 
-export { Clientes };
+usuariosSchema.pre('save', function(next){
+    if(!this.isModified('password')){
+        return next();
+    }
+    bcrypt.genSalt(10, (err, salt) =>{
+        if(err) return next(err);
+
+        bcrypt.hash( this.password, salt, (err, hash) => {
+            if(err) return next(err);
+            this.password = hash;
+            next();
+        })
+    })
+});
+
+const Usuarios = mongoose.model('usuarios', usuariosSchema);
+
+export { Clientes, Usuarios };

@@ -42,5 +42,7 @@
         """ Actualizar un cliente """
         actualizarCliente(input: ClienteInput) : Cliente
         """ Eliminar un cliente """
-        eliminarCliente(id: ID) : String        
+        eliminarCliente(id: ID) : String 
+        """ Crear un usuario """
+        crearUsuario(username: String!, password: String!) : String        
     }
