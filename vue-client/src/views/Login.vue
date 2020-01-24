@@ -14,7 +14,7 @@
                 name="login" 
                 prepend-icon="person" 
                 type="text"
-                v-model="user.usernamde" 
+                v-model="user.username" 
                 />
 
               <v-text-field
@@ -37,6 +37,8 @@
   </v-container>
 </template>
 <script>
+import { LOGIN } from "@/graphql/mutations";
+
 export default {
   name: "login",
   data: () => ({
@@ -47,7 +49,19 @@ export default {
   }),
   methods: {
     login(){
-        console.log(this.user);
+        this.$apollo.mutate({
+          mutation: LOGIN,
+          variables: {
+            username: this.user.username,
+            password: this.user.password
+          }
+        }).then(response => {
+          console.log(response.data.auth);
+          localStorage.setItem("token", response.data.auth.token);
+          })
+          .catch(error => {
+            console.log(error);
+          });
     }
   }
 };
