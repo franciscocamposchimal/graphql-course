@@ -18,18 +18,6 @@ const userSession = (component) => {
                 }
             }
         },
-        apollo: {
-            session: {
-                query: SESSION_QUERY,
-                pollInterval: 1000,
-                result() {
-                    console.log("Still alive!!..");
-                },
-                error() {
-                    this.$router.push('login');
-                },
-            },
-        },
         mounted(){
             this.$apollo.query({
                 query: SESSION_QUERY,
