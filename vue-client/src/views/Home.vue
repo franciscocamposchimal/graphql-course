@@ -1,13 +1,16 @@
 <template>
   <div class="home">
     <v-container claas="grey lighten-5">
+      <v-row>
+        {{user}}
+      </v-row>
       <v-row no-gutters>
         <v-col cols="12" align="center">
           <h2>Lista de clientes</h2>
         </v-col>
       </v-row>
+      <TableContainer :list="getClientes"/>
     </v-container>
-    <TableContainer :list="getClientes"/>
   </div>
 </template>
 
@@ -18,6 +21,7 @@ import { CLIENTES_QUERY } from "@/graphql/queries";
 
 export default {
   name: "home",
+  props: ["user"],
     data: () => ({}),
   components: {
     TableContainer

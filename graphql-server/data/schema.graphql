@@ -15,6 +15,10 @@
     type Token {
         token: String
     }
+    type User {
+        id: ID
+        username: String
+    }
     enum TipoCliente {
         BASICO
         PREMIUM
@@ -22,6 +26,8 @@
     type Query {
         getClientes(limite: Int) : [Cliente]
         getCliente(id: ID): Cliente
+        #Obtiene informacion de un usuario logueado
+        getCurrentUser: User
     }
     input PedidoInput {
         producto: String

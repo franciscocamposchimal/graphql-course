@@ -9,7 +9,7 @@ import {
 Vue.use(VueApollo);
 
 // Name of the localStorage item
-const AUTH_TOKEN = localStorage.getItem('token');
+const AUTH_TOKEN = "apollo-token";
 
 // Http endpoint
 const httpEndpoint =
@@ -47,14 +47,14 @@ const defaultOptions = {
   // cache: myCache
 
   // Override the way the Authorization header is set
-  getAuth: (tokenName) => {
+  /*getAuth: (tokenName) => {
 
     if (tokenName) {
       return 'Bearer ' + tokenName;
     } else {
       return '';
     }
-  }
+  }*/
 
   // Additional ApolloClient options
   // apollo: { ... }

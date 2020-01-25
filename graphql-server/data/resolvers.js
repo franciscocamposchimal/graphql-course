@@ -30,6 +30,16 @@ export const resolvers = {
 				});
 			});
 		},
+		getCurrentUser: (root, args, {currentUser}) => {
+			if(!currentUser){
+				throw new Error("Usuario no encontrado.");
+			}
+			console.log(currentUser);
+
+			let findUser = Usuarios.findById({_id: currentUser.id});
+
+			return findUser;
+		}
 	},
 	Mutation: {
 		crearCliente: (root,{input}) => {
@@ -95,7 +105,7 @@ export const resolvers = {
 				token: genToken(
 					findUser,
 					process.env.JWT_SECRET,
-					'1hr')
+					'10s')
 			};
 			
 		}

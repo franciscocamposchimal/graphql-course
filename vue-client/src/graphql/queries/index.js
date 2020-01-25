@@ -21,3 +21,12 @@ export const CLIENTE_QUERY = gql`
         }
     }
 `;
+
+export const SESSION_QUERY = gql`
+    query {
+        getCurrentUser{
+            id
+            username
+        }
+    }
+`;

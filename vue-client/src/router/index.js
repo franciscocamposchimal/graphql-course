@@ -1,11 +1,19 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Home from "@/views/Home";
+import SessionUser from "@/hocs";
 
 Vue.use(VueRouter);
 
+const sessionHome = SessionUser(Home);
+
 const routes = [
   {
-    path: "/",
+    path: '/',
+    redirect: '/login'
+  },
+  {
+    path: "/login",
     name: "login",
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/Login.vue")
@@ -19,8 +27,7 @@ const routes = [
   {
     path: "/home",
     name: "home",
-    component: () =>
-      import(/* webpackChunkName: "home" */ "../views/Home.vue")
+    component: sessionHome
   }
 ];
 

@@ -46,7 +46,7 @@
 </template>
 <script>
 import { LOGIN } from "@/graphql/mutations";
-
+import { onLogin, onLogout } from "../vue-apollo";
 export default {
   name: "login",
   data: () => ({
@@ -73,14 +73,19 @@ export default {
           }
         }).then(response => {
           console.log(response.data.auth);
-          localStorage.setItem("token", response.data.auth.token);
+          //localStorage.setItem("token", response.data.auth.token);
+          onLogin(this.$apollo.provider.defaultClient, response.data.auth.token);
           this.$router.push('home');
           })
           .catch(error => {
-            console.log(error);
+            console.log(error.message);
+            onLogout(this.$apollo.provider.defaultClient);
           });
       }
     }
+  },
+  mounted() {
+    onLogout(this.$apollo.provider.defaultClient);
   }
 };
 </script>

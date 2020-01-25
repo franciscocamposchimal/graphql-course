@@ -33,8 +33,7 @@ const server = new ApolloServer({
                }
 
 			} catch (err) {
-                console.log(err);
-                throw new Error("Unauthorized");
+                throw new Error(err);
             }
 		}
 	}
