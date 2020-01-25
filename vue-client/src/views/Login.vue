@@ -58,6 +58,7 @@ export default {
         }).then(response => {
           console.log(response.data.auth);
           localStorage.setItem("token", response.data.auth.token);
+          this.$router.push('home');
           })
           .catch(error => {
             console.log(error);
