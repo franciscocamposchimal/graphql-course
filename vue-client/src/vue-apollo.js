@@ -9,11 +9,11 @@ import {
 Vue.use(VueApollo);
 
 // Name of the localStorage item
-const AUTH_TOKEN = "token";
+const AUTH_TOKEN = localStorage.getItem('token');
 
 // Http endpoint
 const httpEndpoint =
-  process.env.VUE_APP_GRAPHQL_HTTP || "http://192.168.1.82:8000/graphql";
+  process.env.VUE_APP_GRAPHQL_HTTP || "http://localhost:8000/graphql";
 // Files URL root
 export const filesRoot =
   process.env.VUE_APP_FILES_ROOT ||
@@ -36,7 +36,7 @@ const defaultOptions = {
   // You need to pass a `wsEndpoint` for this to work
   websocketsOnly: false,
   // Is being rendered on the server?
-  ssr: false
+  ssr: false,
 
   // Override default apollo link
   // note: don't override httpLink here, specify httpLink options in the
@@ -47,7 +47,14 @@ const defaultOptions = {
   // cache: myCache
 
   // Override the way the Authorization header is set
-  // getAuth: (tokenName) => ...
+  getAuth: (tokenName) => {
+
+    if (tokenName) {
+      return 'Bearer ' + tokenName;
+    } else {
+      return '';
+    }
+  }
 
   // Additional ApolloClient options
   // apollo: { ... }

@@ -8,13 +8,19 @@
             <v-spacer />
           </v-toolbar>
           <v-card-text>
-            <v-form>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
               <v-text-field 
                 label="Login" 
                 name="login" 
                 prepend-icon="person" 
                 type="text"
                 v-model="user.username" 
+                :rules="nameRules"
+                required
                 />
 
               <v-text-field
@@ -24,6 +30,8 @@
                 prepend-icon="lock"
                 type="password"
                 v-model="user.password"
+                :rules="passwordRules"
+                required
               />
             </v-form>
           </v-card-text>
@@ -42,13 +50,21 @@ import { LOGIN } from "@/graphql/mutations";
 export default {
   name: "login",
   data: () => ({
+    valid: true,
     user: {
       username: "",
       password: ""
-    }
+    },
+    nameRules: [
+      v => !!v || 'Username is required',
+    ],
+    passwordRules: [
+      v => !!v || 'Password is required',
+    ]
   }),
   methods: {
     login(){
+      if (this.$refs.form.validate()) {          
         this.$apollo.mutate({
           mutation: LOGIN,
           variables: {
@@ -58,10 +74,12 @@ export default {
         }).then(response => {
           console.log(response.data.auth);
           localStorage.setItem("token", response.data.auth.token);
+          this.$router.push('home');
           })
           .catch(error => {
             console.log(error);
           });
+      }
     }
   }
 };
