@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 //Token
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+//subs
+import { PubSub } from 'apollo-server-express';
 
 dotenv.config({path: 'vars.env'});
 
@@ -12,7 +14,15 @@ const genToken = (userLogin, secret, expiresIn) => {
 	return jwt.sign(user,secret,{expiresIn});
 };
 
+const pubsub = new PubSub();
+const CLIENT_ADDED = 'clientAdded';
+
 export const resolvers = {
+	Subscription: {
+		clientAdded: {
+		  subscribe: () => pubsub.asyncIterator([CLIENT_ADDED]),
+		},
+	  },
 	Query: {
 		getClientes: (parent, {limite}, context, info) => {
 			//console.log(info.fieldName);
@@ -54,11 +64,16 @@ export const resolvers = {
 				pedidos : input.pedidos
 			});
 			nuevoCliente.id = nuevoCliente._id;
-
+					
 			return new Promise( (resolve, object) => {
 				nuevoCliente.save((error) => {
-					if(error) rejects(error)
-					else resolve(nuevoCliente)
+					if(error){
+						rejects(error)
+					}else{
+						//let clone = {...nuevoCliente};
+						pubsub.publish(CLIENT_ADDED, {clientAdded: nuevoCliente});
+						resolve(nuevoCliente)
+					}
 				});
 			});
 		},

@@ -25,7 +25,7 @@ const userSession = (component) => {
                 this.user.id = resp.data.getCurrentUser.id;
                 this.user.username = resp.data.getCurrentUser.username;
             }).catch( () => {
-                this.$router.push('login');
+                //this.$router.push('login');
             }); 
         }
     });

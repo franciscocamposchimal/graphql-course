@@ -8,6 +8,9 @@
         tipo: TipoCliente
         pedidos: [Pedido]
     }
+    type Subscription {
+        clientAdded: Cliente
+    }
     type Pedido {
         producto: String
         precio: Int
